@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp", "EsSharp\EsSharp.csproj", "{D63BCDF9-4D43-4BD4-ABBA-141698467E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp", "EsSharp\EsSharp.csproj", "{D63BCDF9-4D43-4BD4-ABBA-141698467E39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.Tests", "EsSgarp.Tests\EsSharp.Tests.csproj", "{0F066048-BF34-4657-8655-EC62AB691624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D63BCDF9-4D43-4BD4-ABBA-141698467E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D63BCDF9-4D43-4BD4-ABBA-141698467E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D63BCDF9-4D43-4BD4-ABBA-141698467E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F066048-BF34-4657-8655-EC62AB691624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F066048-BF34-4657-8655-EC62AB691624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F066048-BF34-4657-8655-EC62AB691624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F066048-BF34-4657-8655-EC62AB691624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
