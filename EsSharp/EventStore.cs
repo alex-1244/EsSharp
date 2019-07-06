@@ -2,38 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EsSharp.Storage;
 
 namespace EsSharp
 {
 	public class EventStore
 	{
 		private readonly IEventSerializer _serializer;
-		private readonly IList<IEvent> _events;
+		private readonly IEventDataStorage _dataStorage;
 
-		protected IEnumerable<IEvent> Events => this._events.AsEnumerable();
-
-		public EventStore(IEventSerializer serializer)
+		public EventStore(IEventSerializer serializer, IEventDataStorage dataStorage)
 		{
 			this._serializer = serializer;
-			_events = new List<IEvent>();
+			this._dataStorage = dataStorage;
 		}
 
 		public IEnumerable<IEvent> GetEventsForAggregate(Guid aggregateId, int fromVersion = 0)
 		{
-			return this._events.Where(x =>
-				x.AggregateId == aggregateId
-				&& x.ExpectedVersion >= fromVersion).OrderBy(x=>x.ExpectedVersion);
+			return this._dataStorage.Get(aggregateId, fromVersion);
 		}
 
 		public void Add(IEvent ev)
 		{
-			this._events.Add(ev);
+			this._dataStorage.Add(ev);
 		}
 
 		public void Commit()
 		{
 			//save events to DB here
-			this._events.Clear();
+			this._dataStorage.Commit();
 		}
 	}
 }

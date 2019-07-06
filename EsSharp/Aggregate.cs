@@ -9,7 +9,8 @@ namespace EsSharp
 	[Serializable]
 	public abstract class Aggregate
 	{
-		private readonly IList<IEvent> _events;
+		[NonSerialized]
+		private IList<IEvent> _events;
 
 		protected Aggregate()
 		{
@@ -45,7 +46,7 @@ namespace EsSharp
 		[OnDeserialized]
 		internal void OnDeserializedMethod(StreamingContext context)
 		{
-			this._events.Clear();
+			this._events = new List<IEvent>();
 		}
 	}
 }

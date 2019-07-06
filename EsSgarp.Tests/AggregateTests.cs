@@ -39,7 +39,7 @@ namespace EsSharp.Tests
 		[Fact]
 		public void Aggregate_ShouldBeRebuildedFromSnapshot_WhenSnapshotDataAvailable()
 		{
-			var aggStore = new AggregateStore(new EventStore(new DefaultEventSerializer()), new DefaultAggregateSerializer());
+			var aggStore = new AggregateStore(new EventStore(new DefaultEventSerializer(), new EventDataStorage()), new DefaultAggregateSerializer(), new SnapshotDataStorage());
 
 			var car = new Car();
 			car.ChangeTyre(new Tyre() { Price = 10 }, TyrePlacement.LeftBack);
@@ -49,16 +49,16 @@ namespace EsSharp.Tests
 			car.ChangeTyre(new Tyre() { Price = 14 }, TyrePlacement.RightBack);
 			car.ChangeTyre(new Tyre() { Price = 15 }, TyrePlacement.RightFront);
 
-			aggStore.SaveAggregate(car);
+			aggStore.Save(car);
 
-			var carFromSnapshot = aggStore.GetAggregate<Car>(car.Id);
+			var carFromSnapshot = aggStore.Get<Car>(car.Id);
 
 			carFromSnapshot.ChangeTyre(new Tyre() { Price = 17 }, TyrePlacement.RightBack);
 			carFromSnapshot.ChangeTyre(new Tyre() { Price = 16 }, TyrePlacement.RightFront);
 
-			aggStore.SaveAggregate(carFromSnapshot);
+			aggStore.Save(carFromSnapshot);
 
-			var carFromSnapshot2 = aggStore.GetAggregate<Car>(car.Id);
+			var carFromSnapshot2 = aggStore.Get<Car>(car.Id);
 
 			Assert.Equal(8, carFromSnapshot2.Version);
 			Assert.Equal(16, carFromSnapshot2.RightFrontTyre.Price);

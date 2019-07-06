@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using EsSharp.Storage;
 
 namespace EsSharp
 {
@@ -8,24 +7,25 @@ namespace EsSharp
 	{
 		private readonly EventStore _eventStore;
 		private readonly IAggregateSerializer _serializer;
-		private readonly List<AggregateSnapshot> _snapshotData;
+		private readonly ISnapshotDataStorage _snapshotDataStorage;
 
-		public AggregateStore(EventStore eventStore, IAggregateSerializer serializer)
+		public AggregateStore(
+			EventStore eventStore,
+			IAggregateSerializer serializer,
+			ISnapshotDataStorage snapshotDataStorage)
 		{
-			_eventStore = eventStore;
-			_serializer = serializer;
-			this._snapshotData = new List<AggregateSnapshot>();
+			this._eventStore = eventStore;
+			this._serializer = serializer;
+			this._snapshotDataStorage = snapshotDataStorage;
 		}
 
-		public T GetAggregate<T>(Guid aggregateId) where T : Aggregate, new()
+		public T Get<T>(Guid aggregateId) where T : Aggregate, new()
 		{
-			var aggregateSnapshots = _snapshotData.Where(x => x.AggregateId == aggregateId).ToList();
-			AggregateSnapshot aggregateData = null;
+			var aggregateData = this._snapshotDataStorage.Get(aggregateId);
 			Aggregate agg;
 
-			if (aggregateSnapshots.Any())
+			if (aggregateData != null)
 			{
-				aggregateData = aggregateSnapshots.OrderByDescending(x => x.AggregateVersion).First();
 				agg = this._serializer.Deserialize<T>(aggregateData.AggregateData);
 			}
 			else
@@ -43,29 +43,16 @@ namespace EsSharp
 			return (T)agg;
 		}
 
-		public void SaveAggregate(Aggregate aggregate)
+		public void Save(Aggregate aggregate)
 		{
 			foreach (var @event in aggregate.Events)
 			{
 				this._eventStore.Add(@event);
 			}
 
-			if (aggregate.Version - this.GetLastSnapshotVersion(aggregate.Id) > 5)
-			{
-				var aggSnapshot = new AggregateSnapshot(this._serializer.Serialize(aggregate), aggregate.Id, aggregate.Version);
-				this._snapshotData.Add(aggSnapshot);
-			}
-		}
-
-		private int GetLastSnapshotVersion(Guid aggregateId)
-		{
-			var versionHistory = _snapshotData.Where(x => x.AggregateId == aggregateId).Select(x => x.AggregateVersion).ToList();
-			if (versionHistory.Any())
-			{
-				return versionHistory.Max();
-			}
-
-			return 0;
+			var aggSnapshot = new AggregateSnapshot(this._serializer.Serialize(aggregate), aggregate.Id, aggregate.Version);
+			this._snapshotDataStorage.Add(aggSnapshot);
+			this._snapshotDataStorage.Commit();
 		}
 	}
 }
