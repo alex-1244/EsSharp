@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.App", "EsSharp.App\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.UserManagementBoundedContext", "EsSharp.UserManagementBoundedContext\EsSharp.UserManagementBoundedContext.csproj", "{813221E1-1307-439E-BBFD-3F9F87E06133}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.ShopBoundedContext", "EsSharp.ShopBoundedContext\EsSharp.ShopBoundedContext.csproj", "{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{813221E1-1307-439E-BBFD-3F9F87E06133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{813221E1-1307-439E-BBFD-3F9F87E06133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{813221E1-1307-439E-BBFD-3F9F87E06133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

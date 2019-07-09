@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using EsSharp.ShopBoundedContext.Customers;
 using EsSharp.UserManagementBoundedContext.Users.Events;
 
 namespace EsSharp.UserManagementBoundedContext.Users
 {
-	public partial class User: Aggregate
+	public partial class User : Aggregate
 	{
 		public string Name { get; private set; }
 
@@ -14,17 +17,18 @@ namespace EsSharp.UserManagementBoundedContext.Users
 
 		public bool IsActive { get; private set; }
 
-		public User()
+		public User(Guid id)
 		{
-			this.Id = Guid.NewGuid();
+			this.Id = id;
 		}
 
-		public void RegisterUser(string name, string familyName, string email)
+		public User(string name, string familyName, string email) : this(Guid.NewGuid())
 		{
 			this.Name = name;
 			this.FamilyName = familyName;
 			this.Email = email;
-			this.PublishEvent(new UserRegistered(this.Id, this.Version, name, familyName, email));
+			this.Id = Guid.NewGuid();
+			this.PublishEvent(new UserRegistered(this.Id, this.Version, this.Name, this.FamilyName, this.Email));
 		}
 
 		public void ActivateUser()

@@ -34,16 +34,16 @@ namespace EsSharp.Tests.TestEntities
 
 	public class EventDataStorage : IEventDataStorage
 	{
-		public readonly List<IEvent> _events;
+		public readonly HashSet<IEvent> _events;
 
 		public EventDataStorage()
 		{
-			this._events = new List<IEvent>();
+			this._events = new HashSet<IEvent>();
 		}
 
 		public IEnumerable<IEvent> Get(Guid aggregateId, int version = 0)
 		{
-			return _events.Where(x => x.AggregateId == aggregateId && x.ExpectedVersion >= version);
+			return _events.Where(x => x.AggregateId == aggregateId && x.ExpectedVersion >= version).OrderBy(x=>x.ExpectedVersion);
 		}
 
 		public void Add(IEvent @event)
@@ -53,7 +53,7 @@ namespace EsSharp.Tests.TestEntities
 
 		public void Add(IEnumerable<IEvent> events)
 		{
-			this._events.AddRange(events);
+			this._events.UnionWith(events);
 		}
 
 		public void Commit()

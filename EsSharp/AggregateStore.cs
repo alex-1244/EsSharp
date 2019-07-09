@@ -19,7 +19,7 @@ namespace EsSharp
 			this._snapshotDataStorage = snapshotDataStorage;
 		}
 
-		public T Get<T>(Guid aggregateId) where T : Aggregate, new()
+		public T Get<T>(Guid aggregateId) where T : Aggregate
 		{
 			var aggregateData = this._snapshotDataStorage.Get(aggregateId);
 			Aggregate agg;
@@ -30,7 +30,10 @@ namespace EsSharp
 			}
 			else
 			{
-				agg = new T();
+				var argTypes = new[] { typeof(Guid) };
+				var constructor = typeof(T).GetConstructor(argTypes);
+				var argValues = new object[] { aggregateId };
+				agg = (Aggregate)constructor.Invoke(argValues);
 			}
 
 			var eventsForAggregate = this._eventStore.GetEventsForAggregate(aggregateId, aggregateData?.AggregateVersion ?? 0);
