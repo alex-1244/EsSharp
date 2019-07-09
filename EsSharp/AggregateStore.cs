@@ -48,10 +48,7 @@ namespace EsSharp
 
 		public void Save(Aggregate aggregate)
 		{
-			foreach (var @event in aggregate.Events)
-			{
-				this._eventStore.Add(@event);
-			}
+			this._eventStore.Add(aggregate);
 
 			var aggSnapshot = new AggregateSnapshot(this._serializer.Serialize(aggregate), aggregate.Id, aggregate.Version);
 			this._snapshotDataStorage.Add(aggSnapshot);

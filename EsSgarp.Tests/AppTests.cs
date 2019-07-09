@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using EsSharp.ShopBoundedContext;
 using EsSharp.ShopBoundedContext.Customers;
 using EsSharp.ShopBoundedContext.Managers;
@@ -20,9 +17,11 @@ namespace EsSharp.Tests
 			var manager = new Manager("Manager");
 
 			var user = new User("alex", "T", "alex112244@gmail.com");
+
 			var customer = new Customer(user.Id, user.Name);
 			customer.Fund(100);
 			var newOrderId = customer.CreateOrder();
+
 			var order = customer.Orders.First(x => x.Id == newOrderId);
 			order.SetManager(manager);
 			order.AddProduct(new Product()
@@ -35,15 +34,8 @@ namespace EsSharp.Tests
 
 			var es = new EventStore(new DefaultEventSerializer(), new EventDataStorage());
 
-			foreach (var @event in customer.Events)
-			{
-				es.Add(@event);
-			}
-
-			foreach (var @event in manager.Events)
-			{
-				es.Add(@event);
-			}
+			es.Add(customer);
+			es.Add(manager);
 
 			es.Commit();
 

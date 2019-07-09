@@ -19,17 +19,23 @@ namespace EsSharp
 
 		public IEnumerable<IEvent> GetEventsForAggregate(Guid aggregateId, int fromVersion = 0)
 		{
-			return this._dataStorage.Get(aggregateId, fromVersion);
+			return this._dataStorage.Get(aggregateId, fromVersion).Select(x=>this._serializer.Deserialize<IEvent>(x.data));
 		}
 
-		public void Add(IEvent ev)
+		public void Add(Aggregate aggregate)
 		{
-			this._dataStorage.Add(ev);
+			this._dataStorage.Add(aggregate.Events.Select(ev=>new SerializedEvent
+			{
+				AggregateId = ev.AggregateId,
+				ExpectedVersion = ev.ExpectedVersion,
+				EventType = ev.EventType,
+				EventId = ev.EventId,
+				data = this._serializer.Serialize(ev)
+			}));
 		}
 
 		public void Commit()
 		{
-			//save events to DB here
 			this._dataStorage.Commit();
 		}
 	}
