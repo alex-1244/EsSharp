@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using EsSharp.App.Database;
 
 namespace EsSharp.Projections
 {
 	public class ProjectionsContainer
 	{
-		private List<ProjectionBuilder> _projections;
+		private readonly List<ProjectionBuilder> _projections;
 
-		public ProjectionsContainer()
+		public ProjectionsContainer(ProjectionsDatabaseConnection connection)
 		{
 			this._projections = new List<ProjectionBuilder>()
 			{
-				new UserProjectionBuilder()
+				new UserProjectionBuilder(connection)
 			};
 		}
 
 		public IEnumerable<ProjectionBuilder<T>> GetProjectionBuilders<T>() where T: Aggregate
 		{
 			return this._projections.Where(x =>
-				x.GetType().GenericTypeArguments.Length == 1 &&
-				x.GetType().GenericTypeArguments[0].IsAssignableFrom(typeof(Aggregate))).Select(x => (ProjectionBuilder<T>)x);
+				x.GetType().BaseType.GenericTypeArguments.Length == 1 &&
+				x.GetType().BaseType.GenericTypeArguments[0].IsAssignableFrom(typeof(T)) &&
+				x.GetType().BaseType.GetGenericTypeDefinition().IsAssignableFrom(typeof(ProjectionBuilder<>))).Select(x => (ProjectionBuilder<T>)x);
 		}
 	}
 }

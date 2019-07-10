@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.60.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EsSharp.App.Database\EsSharp.App.Database.csproj" />
     <ProjectReference Include="..\EsSharp.UserManagementBoundedContext\EsSharp.UserManagementBoundedContext.csproj" />
     <ProjectReference Include="..\EsSharp\EsSharp.csproj" />
   </ItemGroup>

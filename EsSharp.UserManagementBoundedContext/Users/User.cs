@@ -28,6 +28,7 @@ namespace EsSharp.UserManagementBoundedContext.Users
 			this.FamilyName = familyName;
 			this.Email = email;
 			this.Id = Guid.NewGuid();
+			this.Validate();
 			this.PublishEvent(new UserRegistered(this.Id, this.Version, this.Name, this.FamilyName, this.Email));
 		}
 
@@ -48,24 +49,24 @@ namespace EsSharp.UserManagementBoundedContext.Users
 			this.PublishEvent(new UserSuspended(this.Id, this.Version, reason));
 		}
 
-		private void ValidateUser(string name, string familyName, string email)
+		private void Validate()
 		{
-			if (string.IsNullOrEmpty(name))
+			if (string.IsNullOrEmpty(this.Name))
 			{
 				throw new AggregateException("User name is required");
 			}
 
-			if (string.IsNullOrEmpty(familyName))
+			if (string.IsNullOrEmpty(this.FamilyName))
 			{
 				throw new AggregateException("User family name is required");
 			}
 
-			if (string.IsNullOrEmpty(email))
+			if (string.IsNullOrEmpty(this.Email))
 			{
 				throw new AggregateException("User email is required");
 			}
 
-			if (!Regex.Match(email, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", RegexOptions.IgnoreCase).Success)
+			if (!Regex.Match(this.Email, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", RegexOptions.IgnoreCase).Success)
 			{
 				throw new AggregateException("User email is in invalid format");
 			}

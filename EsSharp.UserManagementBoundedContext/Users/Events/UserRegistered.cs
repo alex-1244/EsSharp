@@ -2,6 +2,7 @@
 
 namespace EsSharp.UserManagementBoundedContext.Users.Events
 {
+	[Serializable]
 	public class UserRegistered: IEvent
 	{
 		public UserRegistered(

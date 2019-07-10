@@ -10,6 +10,9 @@ namespace EsSharp.App.Database
 	{
 		public DbSet<SerializedEvent> Events { get; set; }
 
+		public EventStoreContext(DbContextOptions<EventStoreContext> options): base(options)
+		{ }
+
 		public IEnumerable<SerializedEvent> Get(Guid aggregateId, int version = 0)
 		{
 			return this.Events.AsNoTracking().Where(x =>

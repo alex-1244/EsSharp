@@ -49,6 +49,7 @@ namespace EsSharp.App.Controllers
 			}
 
 			this._eventStore.Add(domainUser);
+			this._eventStore.Commit();
 
 			return domainUser.Id;
 		}

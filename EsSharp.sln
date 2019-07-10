@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp", "EsSharp\EsSharp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.Tests", "EsSgarp.Tests\EsSharp.Tests.csproj", "{0F066048-BF34-4657-8655-EC62AB691624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.UserManagementBoundedContext", "EsSharp.UserManagementBoundedContext\EsSharp.UserManagementBoundedContext.csproj", "{813221E1-1307-439E-BBFD-3F9F87E06133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.UserManagementBoundedContext", "EsSharp.UserManagementBoundedContext\EsSharp.UserManagementBoundedContext.csproj", "{813221E1-1307-439E-BBFD-3F9F87E06133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.ShopBoundedContext", "EsSharp.ShopBoundedContext\EsSharp.ShopBoundedContext.csproj", "{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.ShopBoundedContext", "EsSharp.ShopBoundedContext\EsSharp.ShopBoundedContext.csproj", "{DDE4EB69-C694-4A28-B772-AC17D2BE0CD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.Projections", "EsSharp.Projections\EsSharp.Projections.csproj", "{949624FE-FD8C-4928-83EC-44B93F745EE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.Projections", "EsSharp.Projections\EsSharp.Projections.csproj", "{949624FE-FD8C-4928-83EC-44B93F745EE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.App", "EsSharp.App\EsSharp.App.csproj", "{1E518F32-998D-4CDB-9D53-CD0DF2F05AC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.App", "EsSharp.App\EsSharp.App.csproj", "{1E518F32-998D-4CDB-9D53-CD0DF2F05AC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsSharp.App.Database", "EsSharp.App.Database\EsSharp.App.Database.csproj", "{90F9FD54-1EA6-4BB4-9193-D557A6C6BF78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsSharp.App.Database", "EsSharp.App.Database\EsSharp.App.Database.csproj", "{90F9FD54-1EA6-4BB4-9193-D557A6C6BF78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{FC8497C6-0402-491C-88C6-4300EAD4541A}"
 EndProject
@@ -58,6 +58,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{949624FE-FD8C-4928-83EC-44B93F745EE5} = {FC8497C6-0402-491C-88C6-4300EAD4541A}
 		{1E518F32-998D-4CDB-9D53-CD0DF2F05AC1} = {FC8497C6-0402-491C-88C6-4300EAD4541A}
 		{90F9FD54-1EA6-4BB4-9193-D557A6C6BF78} = {FC8497C6-0402-491C-88C6-4300EAD4541A}
 	EndGlobalSection
