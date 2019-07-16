@@ -2,6 +2,7 @@
 
 namespace EsSharp.UserManagementBoundedContext.Users.Events
 {
+	[Serializable]
 	public class UserSuspended : IEvent
 	{
 		public UserSuspended(Guid aggregateId, int expectedVersion, string reason)

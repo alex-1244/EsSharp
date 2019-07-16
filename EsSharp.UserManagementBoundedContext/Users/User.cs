@@ -32,13 +32,13 @@ namespace EsSharp.UserManagementBoundedContext.Users
 			this.PublishEvent(new UserRegistered(this.Id, this.Version, this.Name, this.FamilyName, this.Email));
 		}
 
-		public void ActivateUser()
+		public void Activate()
 		{
 			this.IsActive = true;
 			this.PublishEvent(new UserActivated(this.Id, this.Version));
 		}
 
-		public void SuspendUser(string reason)
+		public void Suspend(string reason)
 		{
 			if (string.IsNullOrEmpty(reason))
 			{

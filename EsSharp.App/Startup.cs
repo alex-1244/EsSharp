@@ -41,6 +41,7 @@ namespace EsSharp.App
 			});
 
 			services.AddScoped<ProjectionsContainer>();
+			services.AddScoped<SynchronizedAggregateStore>();
 			services.AddScoped<IEventDataStorage, EventStoreContext>();
 			services.AddTransient<IEventSerializer, BinaryEventSerializer>();
 			services.AddTransient<ProjectionsDatabaseConnection>(x =>

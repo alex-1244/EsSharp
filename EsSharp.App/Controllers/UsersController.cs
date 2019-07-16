@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EsSharp.App.Models;
 using EsSharp.Projections;
-using EsSharp.Storage;
 using Microsoft.AspNetCore.Mvc;
-using EsSharp.UserManagementBoundedContext.Users;
+using User = EsSharp.UserManagementBoundedContext.Users.User;
 using UserDto = EsSharp.App.Models.User;
 
 namespace EsSharp.App.Controllers
@@ -14,56 +11,45 @@ namespace EsSharp.App.Controllers
 	[ApiController]
 	public class UsersController : ControllerBase
 	{
-		private readonly EventStore _eventStore;
-		private IEnumerable<ProjectionBuilder<User>> _projections;
+		private readonly SynchronizedAggregateStore _aggregateStore;
 
-		public UsersController(ProjectionsContainer projections, EventStore eventStore)
+		public UsersController(SynchronizedAggregateStore aggregateStore)
 		{
-			_eventStore = eventStore;
-			this._projections = projections.GetProjectionBuilders<User>();
+			_aggregateStore = aggregateStore;
 		}
 
-		//// GET api/values
-		//[HttpGet]
-		//public ActionResult<IEnumerable<string>> Get()
-		//{
-		//	return new string[] { "value1", "value2" };
-		//}
-
-		//// GET api/values/5
-		//[HttpGet("{id}")]
-		//public ActionResult<string> Get(int id)
-		//{
-		//	return "value";
-		//}
-
-		// POST api/values
-		[HttpPost]
-		public Guid Post([FromBody] UserDto user)
+		[HttpPost("create")]
+		public Guid Create([FromBody] UserDto user)
 		{
 			var domainUser = new User(user.Name, user.FamilyName, user.Email);
 
-			foreach (var projection in this._projections)
-			{
-				projection.HandleEvents(domainUser);
-			}
-
-			this._eventStore.Add(domainUser);
-			this._eventStore.Commit();
+			this._aggregateStore.SaveAggregateAndEvents(domainUser);
 
 			return domainUser.Id;
 		}
 
-		// PUT api/values/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPost("{userId}/activate")]
+		public ActionResult Activate([FromRoute] Guid userId)
 		{
+			var user = this._aggregateStore.Get<User>(userId);
+
+			user.Activate();
+
+			this._aggregateStore.SaveAggregateAndEvents(user);
+
+			return Ok();
 		}
 
-		// DELETE api/values/5
-		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[HttpPost("suspend")]
+		public ActionResult Suspend([FromBody] UserSuspendModel model)
 		{
+			var user = this._aggregateStore.Get<User>(model.UserId);
+
+			user.Suspend(model.Reason);
+
+			this._aggregateStore.SaveAggregateAndEvents(user);
+
+			return Ok();
 		}
 	}
 }

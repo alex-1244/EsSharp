@@ -48,7 +48,7 @@ namespace EsSharp.UserManagementBoundedContext.Groups
 		{
 			foreach (var user in this._users)
 			{
-				user.SuspendUser(reason);
+				user.Suspend(reason);
 			}
 		}
 	}

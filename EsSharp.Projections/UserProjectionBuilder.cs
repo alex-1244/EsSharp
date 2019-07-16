@@ -23,12 +23,14 @@ namespace EsSharp.Projections
 
 		public void Handle(UserActivated @event)
 		{
-
+			this._database.Connection.Execute(
+				$"UPDATE [EsSharpProjectionDatabase].[dbo].[Users] SET IsActive = 1 WHERE Id = '{@event.AggregateId}'");
 		}
 
 		public void Handle(UserSuspended @event)
 		{
-
+			this._database.Connection.Execute(
+				$"UPDATE [EsSharpProjectionDatabase].[dbo].[Users] SET IsActive = 0 WHERE Id = '{@event.AggregateId}'");
 		}
 	}
 }

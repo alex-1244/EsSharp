@@ -2,6 +2,7 @@
 
 namespace EsSharp.UserManagementBoundedContext.Users.Events
 {
+	[Serializable]
 	public class UserActivated : IEvent
 	{
 		public UserActivated(Guid aggregateId, int expectedVersion)
