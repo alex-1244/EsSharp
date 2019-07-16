@@ -1,6 +1,6 @@
 ﻿namespace EsSharp.App.Models
 {
-	public class User
+	public class UserCreationModel
 	{
 		public string Name { get; set; }
 		public string Email { get; set; }

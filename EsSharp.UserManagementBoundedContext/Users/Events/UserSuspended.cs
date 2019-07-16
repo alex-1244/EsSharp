@@ -8,7 +8,7 @@ namespace EsSharp.UserManagementBoundedContext.Users.Events
 		public UserSuspended(Guid aggregateId, int expectedVersion, string reason)
 		{
 			this.EventId = Guid.NewGuid();
-			this.EventType = UserEventTypes.UserActivated.ToString();
+			this.EventType = UserEventTypes.UserSuspended.ToString();
 			this.AggregateId = aggregateId;
 			this.ExpectedVersion = expectedVersion;
 

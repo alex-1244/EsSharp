@@ -3,6 +3,7 @@
 	public enum UserEventTypes
 	{
 		UserRegistered,
-		UserActivated
+		UserActivated,
+		UserSuspended,
 	}
 }

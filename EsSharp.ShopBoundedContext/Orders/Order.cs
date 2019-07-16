@@ -48,10 +48,15 @@ namespace EsSharp.ShopBoundedContext.Orders
 				throw new AggregateException("Insufficient funds");
 			}
 
-			this.IsPayed = true;
-			this.IsClosed = true;
+			this.OrderPayed();
 
 			this.PublishEvent(new OrderPayed(this.Id, this.Version));
+		}
+
+		internal void OrderPayed()
+		{
+			this.IsPayed = true;
+			this.IsClosed = true;
 		}
 
 		public void SetManager(Manager manager)

@@ -1,9 +1,8 @@
 ﻿using System;
 using EsSharp.App.Models;
 using EsSharp.Projections;
+using EsSharp.UserManagementBoundedContext.Users;
 using Microsoft.AspNetCore.Mvc;
-using User = EsSharp.UserManagementBoundedContext.Users.User;
-using UserDto = EsSharp.App.Models.User;
 
 namespace EsSharp.App.Controllers
 {
@@ -19,7 +18,7 @@ namespace EsSharp.App.Controllers
 		}
 
 		[HttpPost("create")]
-		public Guid Create([FromBody] UserDto user)
+		public Guid Create([FromBody] UserCreationModel user)
 		{
 			var domainUser = new User(user.Name, user.FamilyName, user.Email);
 

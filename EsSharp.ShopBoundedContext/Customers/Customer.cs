@@ -6,7 +6,7 @@ using EsSharp.ShopBoundedContext.Orders;
 
 namespace EsSharp.ShopBoundedContext.Customers
 {
-	public class Customer : Aggregate
+	public partial class Customer : Aggregate
 	{
 		public string Name { get; private set; }
 
@@ -20,7 +20,7 @@ namespace EsSharp.ShopBoundedContext.Customers
 
 		public override IEnumerable<IEvent> Events => base.Events.Concat(this._orders.SelectMany(x => x.Events));
 
-		private readonly IList<Order> _orders;
+		internal readonly IList<Order> _orders;
 
 		public Customer(Guid id)
 		{
@@ -61,13 +61,13 @@ namespace EsSharp.ShopBoundedContext.Customers
 
 		public void Fund(int summ)
 		{
+			if (summ <= 0)
+			{
+				throw new AggregateException("summ must be positive integer");
+			}
+
 			this.Balance += summ;
 			this.PublishEvent(new BalanceFunded(this.Id, this.Version, summ));
-		}
-
-		protected override void HandleInternal(IEvent @event)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
