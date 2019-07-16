@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using EsSharp.ShopBoundedContext.Customers;
 using EsSharp.UserManagementBoundedContext.Users.Events;
 
 namespace EsSharp.UserManagementBoundedContext.Users

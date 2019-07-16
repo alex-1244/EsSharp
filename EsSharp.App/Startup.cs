@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using EsSharp.App.Database;
 using EsSharp.App.Domain;
 using EsSharp.Projections;
 using EsSharp.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace EsSharp.App
 {
@@ -44,7 +37,7 @@ namespace EsSharp.App
 			services.AddScoped<SynchronizedAggregateStore>();
 			services.AddScoped<IEventDataStorage, EventStoreContext>();
 			services.AddTransient<IEventSerializer, BinaryEventSerializer>();
-			services.AddTransient<ProjectionsDatabaseConnection>(x =>
+			services.AddTransient(x =>
 				new ProjectionsDatabaseConnection(Configuration.GetConnectionString("ProjectionDatabase")));
 			services.AddScoped<EventStore>();
 		}

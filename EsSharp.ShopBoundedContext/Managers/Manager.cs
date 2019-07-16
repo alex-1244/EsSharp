@@ -16,7 +16,7 @@ namespace EsSharp.ShopBoundedContext.Managers
 
 		public override IEnumerable<IEvent> Events => base.Events.Concat(this._orders.SelectMany(x => x.Events));
 
-		private IList<Order> _orders { get; set; }
+		private readonly IList<Order> _orders;
 
 		public Manager(Guid id)
 		{

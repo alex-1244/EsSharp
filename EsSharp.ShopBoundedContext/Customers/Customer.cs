@@ -20,7 +20,7 @@ namespace EsSharp.ShopBoundedContext.Customers
 
 		public override IEnumerable<IEvent> Events => base.Events.Concat(this._orders.SelectMany(x => x.Events));
 
-		private IList<Order> _orders { get; set; }
+		private readonly IList<Order> _orders;
 
 		public Customer(Guid id)
 		{
@@ -32,7 +32,7 @@ namespace EsSharp.ShopBoundedContext.Customers
 		{
 			this.Name = name;
 			this.UserId = userId;
-			this.PublishEvent(new CustomerCreated(this.Id, name));
+			this.PublishEvent(new CustomerCreated(this.Id, name, userId));
 		}
 
 		public Guid CreateOrder()

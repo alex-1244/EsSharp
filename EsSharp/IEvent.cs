@@ -16,6 +16,6 @@ namespace EsSharp
 		public Guid AggregateId { get; set; }
 		public int ExpectedVersion { get; set; }
 		public string EventType { get; set; }
-		public byte[] data { get; set; }
+		public byte[] Data { get; set; }
 	}
 }

@@ -3,17 +3,16 @@
 namespace EsSharp.ShopBoundedContext.Customers.Events
 {
 	[Serializable]
-	public class CustomerCreated : IEvent
+	public class BalanceFunded : IEvent
 	{
-		public CustomerCreated(Guid aggregateId, string name, Guid userId)
+		public BalanceFunded(Guid aggregateId, int version, int summ)
 		{
 			this.AggregateId = aggregateId;
-			this.ExpectedVersion = 0;
+			this.ExpectedVersion = version;
 			this.EventId = Guid.NewGuid();
 			this.EventType = OrderEventTypes.CustomerCreated.ToString();
 
-			this.Name = name;
-			this.UserId = userId;
+			this.Summ = summ;
 		}
 
 		public Guid EventId { get; }
@@ -21,7 +20,6 @@ namespace EsSharp.ShopBoundedContext.Customers.Events
 		public int ExpectedVersion { get; }
 		public string EventType { get; }
 
-		public string Name { get; }
-		public Guid UserId { get; }
+		public int Summ { get; }
 	}
 }

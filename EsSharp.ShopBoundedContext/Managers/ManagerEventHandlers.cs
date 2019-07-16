@@ -1,6 +1,4 @@
-﻿using System;
-using EsSharp.ShopBoundedContext.Managers.Events;
-using EsSharp.ShopBoundedContext.Orders;
+﻿using EsSharp.ShopBoundedContext.Managers.Events;
 
 namespace EsSharp.ShopBoundedContext.Managers
 {

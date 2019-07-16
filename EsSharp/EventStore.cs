@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EsSharp.Storage;
 
 namespace EsSharp
@@ -19,7 +18,7 @@ namespace EsSharp
 
 		public IEnumerable<IEvent> GetEventsForAggregate(Guid aggregateId, int fromVersion = 0)
 		{
-			return this._dataStorage.Get(aggregateId, fromVersion).Select(x=>this._serializer.Deserialize<IEvent>(x.data));
+			return this._dataStorage.Get(aggregateId, fromVersion).Select(x=>this._serializer.Deserialize<IEvent>(x.Data));
 		}
 
 		public void Add(Aggregate aggregate)
@@ -30,7 +29,7 @@ namespace EsSharp
 				ExpectedVersion = ev.ExpectedVersion,
 				EventType = ev.EventType,
 				EventId = ev.EventId,
-				data = this._serializer.Serialize(ev)
+				Data = this._serializer.Serialize(ev)
 			}));
 		}
 

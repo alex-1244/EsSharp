@@ -9,7 +9,7 @@ namespace EsSharp.Projections
 	{
 		private readonly ProjectionsDatabaseConnection _database;
 
-		public UserProjectionBuilder(ProjectionsDatabaseConnection database) : base()
+		public UserProjectionBuilder(ProjectionsDatabaseConnection database)
 		{
 			this._database = database;
 			this._database.Connection.Open();
