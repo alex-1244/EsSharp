@@ -2,6 +2,7 @@
 
 namespace EsSharp.ShopBoundedContext.Orders.Events
 {
+	[Serializable]
 	public class OrderPayed : IEvent
 	{
 		public OrderPayed(Guid aggregateId, int version)

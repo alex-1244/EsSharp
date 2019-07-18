@@ -3,6 +3,7 @@ using EsSharp.ShopBoundedContext.Orders;
 
 namespace EsSharp.ShopBoundedContext.Managers.Events
 {
+	[Serializable]
 	public class ManagerCreated: IEvent
 	{
 		public ManagerCreated(Guid aggregateId, string name)
@@ -23,6 +24,7 @@ namespace EsSharp.ShopBoundedContext.Managers.Events
 		public string Name { get; }
 	}
 
+	[Serializable]
 	public class ManagerAssigned : IEvent
 	{
 		public ManagerAssigned(Guid aggregateId, Order order)
@@ -43,6 +45,7 @@ namespace EsSharp.ShopBoundedContext.Managers.Events
 		public Order Order { get; }
 	}
 
+	[Serializable]
 	public class ManagerUnassigned : IEvent
 	{
 		public ManagerUnassigned(Guid aggregateId, Order order)
@@ -63,6 +66,7 @@ namespace EsSharp.ShopBoundedContext.Managers.Events
 		public Order Order { get; }
 	}
 
+	[Serializable]
 	public class ManagerClosedOrder : IEvent
 	{
 		public ManagerClosedOrder(Guid aggregateId, Order order)

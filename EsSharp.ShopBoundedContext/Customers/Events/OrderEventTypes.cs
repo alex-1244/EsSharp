@@ -2,6 +2,7 @@
 {
 	public enum OrderEventTypes
 	{
-		CustomerCreated
+		CustomerCreated,
+		CustomerPromoted
 	}
 }

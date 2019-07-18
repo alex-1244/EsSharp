@@ -7,6 +7,21 @@ using System.Runtime.Serialization;
 namespace EsSharp
 {
 	[Serializable]
+	public abstract class AggregationRoot : Aggregate
+	{
+		protected internal override void Commit()
+		{
+			base.Commit();
+			foreach (var aggregate in this.NestedAggregates)
+			{
+				aggregate.Commit();
+			}
+		}
+
+		protected abstract IEnumerable<Aggregate> NestedAggregates { get; }
+	}
+
+	[Serializable]
 	public abstract class Aggregate : IEquatable<Aggregate>
 	{
 		[NonSerialized]
@@ -48,8 +63,13 @@ namespace EsSharp
 
 		protected abstract void HandleInternal(IEvent @event);
 
+		protected internal virtual void Commit()
+		{
+			this._events.Clear();
+		}
+
 		[OnDeserialized]
-		internal void OnDeserializedMethod(StreamingContext context)
+		internal void OnDeserialized(StreamingContext context)
 		{
 			this._events = new List<IEvent>();
 		}

@@ -5,6 +5,7 @@
 		OrderCreated,
 		ManagerAdded,
 		ManagerRemoved,
-		OrderCancelled
+		OrderCancelled,
+		ProductAdded
 	}
 }

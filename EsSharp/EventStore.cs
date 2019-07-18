@@ -9,11 +9,13 @@ namespace EsSharp
 	{
 		private readonly IEventSerializer _serializer;
 		private readonly IEventDataStorage _dataStorage;
+		private readonly IList<Aggregate> _aggregates;
 
 		public EventStore(IEventSerializer serializer, IEventDataStorage dataStorage)
 		{
 			this._serializer = serializer;
 			this._dataStorage = dataStorage;
+			this._aggregates = new List<Aggregate>();
 		}
 
 		public IEnumerable<IEvent> GetEventsForAggregate(Guid aggregateId, int fromVersion = 0)
@@ -31,11 +33,17 @@ namespace EsSharp
 				EventId = ev.EventId,
 				Data = this._serializer.Serialize(ev)
 			}));
+
+			this._aggregates.Add(aggregate);
 		}
 
 		public void Commit()
 		{
 			this._dataStorage.Commit();
+			foreach (var aggregate in this._aggregates)
+			{
+				aggregate.Commit();
+			}
 		}
 	}
 }

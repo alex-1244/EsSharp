@@ -1,5 +1,8 @@
-﻿namespace EsSharp.ShopBoundedContext
+﻿using System;
+
+namespace EsSharp.ShopBoundedContext
 {
+	[Serializable]
 	public class Product
 	{
 		public string Type { get; set; }

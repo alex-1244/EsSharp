@@ -7,6 +7,7 @@ using EsSharp.ShopBoundedContext.Orders.Events;
 
 namespace EsSharp.ShopBoundedContext.Orders
 {
+	[Serializable]
 	public partial class Order : Aggregate
 	{
 		private IList<Product> _products;

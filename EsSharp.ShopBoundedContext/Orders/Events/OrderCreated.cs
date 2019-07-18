@@ -3,6 +3,7 @@ using EsSharp.ShopBoundedContext.Customers;
 
 namespace EsSharp.ShopBoundedContext.Orders.Events
 {
+	[Serializable]
 	public class OrderCreated : IEvent
 	{
 		public OrderCreated(Guid aggregateId, Customer customer)

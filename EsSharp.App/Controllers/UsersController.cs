@@ -17,7 +17,6 @@ namespace EsSharp.App.Controllers
 			_aggregateStore = aggregateStore;
 		}
 
-		[HttpPost("create")]
 		public Guid Create([FromBody] UserCreationModel user)
 		{
 			var domainUser = new User(user.Name, user.FamilyName, user.Email);
@@ -39,10 +38,10 @@ namespace EsSharp.App.Controllers
 			return Ok();
 		}
 
-		[HttpPost("suspend")]
-		public ActionResult Suspend([FromBody] UserSuspendModel model)
+		[HttpPost("{userId}/suspend")]
+		public ActionResult Suspend([FromRoute] Guid userId, [FromBody] UserSuspendModel model)
 		{
-			var user = this._aggregateStore.Get<User>(model.UserId);
+			var user = this._aggregateStore.Get<User>(userId);
 
 			user.Suspend(model.Reason);
 

@@ -2,6 +2,7 @@
 
 namespace EsSharp.ShopBoundedContext.Orders.Events
 {
+	[Serializable]
 	public class OrderCancelled : IEvent
 	{
 		public OrderCancelled(Guid aggregateId, int expectedVersion)

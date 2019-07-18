@@ -6,10 +6,10 @@ namespace EsSharp.ShopBoundedContext.Customers.Events
 	[Serializable]
 	public class CustomerCreatedOrder : IEvent
 	{
-		public CustomerCreatedOrder(Guid aggregateId, Order order)
+		public CustomerCreatedOrder(Guid aggregateId, int version, Order order)
 		{
 			this.AggregateId = aggregateId;
-			this.ExpectedVersion = 0;
+			this.ExpectedVersion = version;
 			this.EventId = Guid.NewGuid();
 			this.EventType = OrderEventTypes.CustomerCreated.ToString();
 

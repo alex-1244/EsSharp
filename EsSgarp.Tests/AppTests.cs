@@ -35,8 +35,9 @@ namespace EsSharp.Tests
 			var es = new EventStore(new DefaultEventSerializer(), new EventDataStorage());
 
 			es.Add(customer);
-			es.Add(manager);
+			es.Commit();
 
+			es.Add(manager);
 			es.Commit();
 
 			var orderEvents = es.GetEventsForAggregate(order.Id);

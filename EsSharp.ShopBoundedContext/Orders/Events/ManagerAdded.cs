@@ -3,6 +3,7 @@ using EsSharp.ShopBoundedContext.Managers;
 
 namespace EsSharp.ShopBoundedContext.Orders.Events
 {
+	[Serializable]
 	public class ManagerAdded : IEvent
 	{
 		public ManagerAdded(Guid aggregateId, int expectedVersion, Manager manager)

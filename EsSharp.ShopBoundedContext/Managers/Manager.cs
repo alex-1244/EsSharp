@@ -6,7 +6,8 @@ using EsSharp.ShopBoundedContext.Orders;
 
 namespace EsSharp.ShopBoundedContext.Managers
 {
-	public partial class Manager : Aggregate
+	[Serializable]
+	public partial class Manager : AggregationRoot
 	{
 		private const int MaxOrdersLimit = 3;
 
@@ -15,6 +16,8 @@ namespace EsSharp.ShopBoundedContext.Managers
 		public IEnumerable<Order> Orders => this._orders.AsEnumerable();
 
 		public override IEnumerable<IEvent> Events => base.Events.Concat(this._orders.SelectMany(x => x.Events));
+
+		protected override IEnumerable<Aggregate> NestedAggregates => this._orders;
 
 		private readonly IList<Order> _orders;
 
